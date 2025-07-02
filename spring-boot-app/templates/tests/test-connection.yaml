@@ -5,8 +5,8 @@ metadata:
   labels:
     {{- include "spring-boot-app.labels" . | nindent 4 }}
   annotations:
-    "helm.sh/hook": test
-    "sidecar.istio.io/inject": false
+    "helm.sh/hook": "test"
+    "sidecar.istio.io/inject": "false"
 spec:
   restartPolicy: Never
   containers:
