@@ -5,7 +5,7 @@ metadata:
   name: {{ include "spring-boot-app.fullname" . }}-api-ingress
   labels:
     {{- include "spring-boot-app.labels" . | nindent 4 }}
-  {{- with .Values.app.ingress.annotations }}
+  {{- with .Values.app.api.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
