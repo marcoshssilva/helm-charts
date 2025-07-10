@@ -32,6 +32,7 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      enableServiceLinks: {{ .Values.app.enableServiceLinks }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.app.securityContext }}
