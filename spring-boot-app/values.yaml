@@ -10,9 +10,10 @@ serviceAccount:
   name: ""
 
 app:
+  enableServiceLinks: false
   replicaCount: 1
   image:
-    repository: dkpub.starlord443.dev/x86_64/marcoshssilva/spring-gateway
+    repository: dkpub.starlord443.dev/marcoshssilva/spring-gateway
     pullPolicy: IfNotPresent
     tag: "latest"
 
