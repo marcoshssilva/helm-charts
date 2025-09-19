@@ -56,8 +56,10 @@ app:
     # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
     api:
       port: 8080
+      enabled: true
     management:
       port: 8081
+      enabled: true
 
   # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
   api:
@@ -95,11 +97,11 @@ app:
   livenessProbe:
     httpGet:
       path: /actuator/health/liveness
-      port: management
+      port: "{{ - if .Values.app.service.management.enabled }}management{{- else }}api{{- end }}"
   readinessProbe:
     httpGet:
       path: /actuator/health/readiness
-      port: management
+      port: "{{ - if .Values.app.service.management.enabled }}management{{- else }}api{{- end }}"
 
   # This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
   autoscaling:

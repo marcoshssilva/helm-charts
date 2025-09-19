@@ -42,12 +42,16 @@ spec:
           image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
           imagePullPolicy: {{ .Values.app.image.pullPolicy }}
           ports:
+            {{ - if .Values.app.service.api.enabled }}
             - name: api
               containerPort: {{ .Values.app.service.api.port }}
               protocol: TCP
+            {{- end }}
+            {{ - if .Values.app.service.management.enabled }}
             - name: management
               containerPort: {{ .Values.app.service.management.port }}
               protocol: TCP
+            {{- end }}
           {{- with .Values.app.env }}
           env:
             {{- toYaml . | nindent 12 }}
@@ -56,7 +60,7 @@ spec:
           envFrom:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.app.args }}
+          {{- with .Values.app.api.args }}
           args:
             {{- toYaml . | nindent 12 }}
           {{- end }}

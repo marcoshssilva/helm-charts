@@ -7,13 +7,17 @@ metadata:
 spec:
   type: {{ .Values.app.service.type }}
   ports:
+    {{ - if .Values.app.service.api.enabled }}
     - port: {{ .Values.app.service.api.port }}
       targetPort: api
       protocol: TCP
       name: api
+    {{- end }}
+    {{ - if .Values.app.service.management.enabled }}
     - port: {{ .Values.app.service.management.port }}
       targetPort: management
       protocol: TCP
       name: management
+    {{- end }}
   selector:
     {{- include "spring-boot-app.selectorLabels" . | nindent 4 }}
