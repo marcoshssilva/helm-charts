@@ -6,14 +6,14 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 jobs:
-  pipeline-steps:
+  pipeline-steps-spring-boot-app:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install Helm
         uses: azure/setup-helm@v4
         with:
-          version: v3.15.2
+          version: v4.3.1
       - name: Prepare Dirs
         run: |
           mkdir ./artifacts
