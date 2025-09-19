@@ -10,6 +10,7 @@ serviceAccount:
   name: ""
 
 app:
+  automountServiceAccountToken: false
   enableServiceLinks: false
   replicaCount: 1
   image:

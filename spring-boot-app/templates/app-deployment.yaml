@@ -42,6 +42,7 @@ spec:
           {{- end }}
           image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
           imagePullPolicy: {{ .Values.app.image.pullPolicy }}
+          automountServiceAccountToken: {{ .Values.app.automountServiceAccountToken }}
           ports:
             {{- if .Values.app.service.api.enabled }}
             - name: api
