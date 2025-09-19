@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "spring-boot-app.fullname" . }}
   labels:
@@ -8,6 +8,7 @@ spec:
   {{- if not .Values.app.autoscaling.enabled }}
   replicas: {{ .Values.app.replicaCount }}
   {{- end }}
+  serviceName: {{ include "spring-boot-app.fullname" . }}
   selector:
     matchLabels:
       {{- include "spring-boot-app.selectorLabels" . | nindent 6 }}

@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -5,6 +6,31 @@ metadata:
   labels:
     {{- include "spring-boot-app.labels" . | nindent 4 }}
 spec:
+  type: {{ .Values.app.service.type }}
+  ports:
+    {{- if .Values.app.service.api.enabled }}
+    - port: {{ .Values.app.service.api.port }}
+      targetPort: api
+      protocol: TCP
+      name: api
+    {{- end }}
+    {{- if .Values.app.service.management.enabled }}
+    - port: {{ .Values.app.service.management.port }}
+      targetPort: management
+      protocol: TCP
+      name: management
+    {{- end }}
+  selector:
+    {{- include "spring-boot-app.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "spring-boot-app.fullname" . }}-headless
+  labels:
+    {{- include "spring-boot-app.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
   type: {{ .Values.app.service.type }}
   ports:
     {{- if .Values.app.service.api.enabled }}
