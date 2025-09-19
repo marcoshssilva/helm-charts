@@ -3,5 +3,5 @@ Helm charts to deploy applications
 
 ## Registry
 
-**HELM LOCAL** 
+**HELM LOCAL** <br/>
 (https://nxr.starlord443.dev/repository/helm-local/)[https://nxr.starlord443.dev/repository/helm-local/]
