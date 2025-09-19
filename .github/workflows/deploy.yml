@@ -6,7 +6,7 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 jobs:
-  build:
+  pipeline-steps:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,10 +19,10 @@ jobs:
           mkdir ./artifacts
       - name: Package Helm chart - spring-boot-app
         run: |
-          SBA_CHART_VERSION=$(yq '.version' ./charts/meu-app/Chart.yaml)
-          SBA_CHART_NAME=$(yq '.name' ./charts/meu-app/Chart.yaml)
+          SBA_CHART_VERSION=$(yq '.version' ./spring-boot-app/Chart.yaml)
+          SBA_CHART_NAME=$(yq '.name' ./spring-boot-app/Chart.yaml)
           echo [DEPLOY spring-boot-app] [CHART=$SBA_CHART_VERSION] [VERSION=$SBA_CHART_VERSION]
           helm dependency update ./spring-boot-app
           helm lint ./spring-boot-app
           helm package ./spring-boot-app --destination ./artifacts
-          curl -u ${{ secrets.GITHUB_USER }}:${{ secrets.GITHUB_TOKEN }} https://nxr.starlord443.dev/repository/helm-local/ --upload-file ./artifacts/${SBA_CHART_NAME}-${SBA_CHART_VERSION}.tgz -v
+          curl -u ${{ secrets.HELM_USER }}:${{ secrets.HELM_TOKEN }} https://nxr.starlord443.dev/repository/helm-local/ --upload-file ./artifacts/${SBA_CHART_NAME}-${SBA_CHART_VERSION}.tgz -v
