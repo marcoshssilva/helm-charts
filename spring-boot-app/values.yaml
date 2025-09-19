@@ -95,13 +95,32 @@ app:
 
   # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
   livenessProbe:
+    enabled: true
     httpGet:
       path: /actuator/health/liveness
-      port: "{{ - if .Values.app.service.management.enabled }}management{{- else }}api{{- end }}"
+    #
+    initialDelaySeconds: 20
+    failureThreshold: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
   readinessProbe:
+    enabled: true
     httpGet:
       path: /actuator/health/readiness
-      port: "{{ - if .Values.app.service.management.enabled }}management{{- else }}api{{- end }}"
+    #
+    initialDelaySeconds: 20
+    failureThreshold: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+  startupProbe:
+    enabled: true
+    httpGet:
+      path: /actuator/health
+    #
+    initialDelaySeconds: 20
+    failureThreshold: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
 
   # This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
   autoscaling:
