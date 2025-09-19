@@ -42,12 +42,12 @@ spec:
           image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
           imagePullPolicy: {{ .Values.app.image.pullPolicy }}
           ports:
-            {{ - if .Values.app.service.api.enabled }}
+            {{- if .Values.app.service.api.enabled }}
             - name: api
               containerPort: {{ .Values.app.service.api.port }}
               protocol: TCP
             {{- end }}
-            {{ - if .Values.app.service.management.enabled }}
+            {{- if .Values.app.service.management.enabled }}
             - name: management
               containerPort: {{ .Values.app.service.management.port }}
               protocol: TCP
